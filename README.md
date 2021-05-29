@@ -6,7 +6,7 @@
 ##### Maven build was used to complete this project. The dependencies you must add in your pom.xml file are as follows:
 
 ```
- <dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
