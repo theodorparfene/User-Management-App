@@ -17,7 +17,7 @@ public class UserServlet extends HttpServlet {
 
     private void listUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<User> users = new ArrayList<>();
-        users = this.userDAO.selectAllUsers();
+        users = userDAO.selectAllUsers();
         request.setAttribute("listUser", users);
         RequestDispatcher dispatcher = request.getRequestDispatcher("user-list.jsp");
         dispatcher.forward(request, response);
@@ -33,14 +33,14 @@ public class UserServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
-        this.userDAO.insertUser(new User(name, email, country));
+        userDAO.insertUser(new User(name, email, country));
 
         response.sendRedirect("list");
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        User existingUser = this.userDAO.selectUser(id);
+        User existingUser = userDAO.selectUser(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
         request.setAttribute("user", existingUser);
         dispatcher.forward(request, response);
@@ -51,19 +51,20 @@ public class UserServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
-        this.userDAO.updateUser(new User(id, name, email, country));
+        User book = new User(id, name, email, country);
+        userDAO.updateUser(book);
         response.sendRedirect("list");
     }
 
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        this.userDAO.deleteUser(id);
+        userDAO.deleteUser(id);
         response.sendRedirect("list");
     }
 
     @Override
     public void init() {
-        this.userDAO = new UserDAO();
+        userDAO = new UserDAO();
     }
 
     @Override

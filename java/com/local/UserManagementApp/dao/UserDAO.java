@@ -15,7 +15,7 @@ public class UserDAO {
     private static final String SELECT_USER_BY_ID = "SELECT id, name, email, country FROM users WHERE id = ?;";
     private static final String SELECT_ALL_USERS = "SELECT * FROM users;";
     private static final String DELETE_USER = "DELETE FROM users WHERE id = ?;";
-    private static final String UPDATE_USER = "UPDATE users SET name = ?, email = ?, country = ?;";
+    private static final String UPDATE_USER = "UPDATE users SET name = ?, email = ?, country = ? WHERE id = ?;";
 
     public Connection getConnection() {
         Connection connection = null;
@@ -70,7 +70,7 @@ public class UserDAO {
                 String email = resultSet.getString("email");
                 String country = resultSet.getString("country");
 
-                user = new User(name, email, country);
+                user = new User(id, name, email, country);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,10 +116,11 @@ public class UserDAO {
         boolean rowUpdated = false;
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)) {
-            preparedStatement.setInt(1, user.getId());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getCountry());
+
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getCountry());
+            preparedStatement.setInt(4, user.getId());
 
             rowUpdated = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {

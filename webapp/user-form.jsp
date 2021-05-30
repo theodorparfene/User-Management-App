@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>User Management App</title>
@@ -45,7 +45,7 @@
                     </caption>
 
                     <c:if test="${user != null}">
-                        <input type="hidden" name="id" value="<c:out value='${user.id}' />" />
+                        <input type="hidden" name="id" value="<c:out value='${user.id}' />"/>
                     </c:if>
 
                     <fieldset class="form-group">
@@ -62,7 +62,8 @@
 
                     <fieldset class="form-group">
                         <label>User Country</label> <input type="text"
-                                                           value="<c:out value='${user.country}' />" class="form-control"
+                                                           value="<c:out value='${user.country}' />"
+                                                           class="form-control"
                                                            name="country">
                     </fieldset>
 
